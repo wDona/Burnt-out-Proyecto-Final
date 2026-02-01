@@ -6,7 +6,7 @@ import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 
 
-abstract class KtorApi {
+open class KtorApi {
     val client = HttpClient {
         install(ContentNegotiation) {
             json(Json {
