@@ -3,7 +3,7 @@ name: Reporta un bug
 about: Crea un informe para ayudarnos a mejorar.
 title: "[BUG] "
 labels: bug
-assignees:
+assignees: wdona
 ---
 **Descripción del error**
 Una descripción clara y concisa de lo que es el error.
