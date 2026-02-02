@@ -8,6 +8,7 @@ fun main() = application {
         onCloseRequest = ::exitApplication,
         title = "Burnt-out",
     ) {
-        App()
+        val factory = ViewModelFactory()
+        App(factory)
     }
 }

@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.sqlDelight)
+    alias(libs.plugins.kotlinSerialization) // <-- CORREGIDO
 }
 
 kotlin {
@@ -32,6 +33,7 @@ kotlin {
         jvmMain.dependencies {
             implementation(libs.ktor.client.cio)
             implementation(libs.sqlDelight.driver.sqlite)
+            implementation("org.xerial:sqlite-jdbc:3.45.3.0")
         }
     }
 }
