@@ -10,7 +10,7 @@ trabajo.
 
 ## 🌟 Características Principales
 
-* **Gestión Visual:** Organización mediante tableros, tarjetas, tareas y subtareas: 3, 9].
+* **Gestión Visual:** Organización mediante tableros, tarjetas, tareas y subtareas: 
 * **Monitoreo de Bienestar:** Encuestas rápidas (menos de 15 segundos) y anónimas sobre
 * estrés y ánimo:
 * **Prevención Activa:** La app evalúa el riesgo de agotamiento, genera alertas y puede 
