@@ -29,7 +29,8 @@ y **Compose** para la interfaz de usuario.
 
 * **Cliente:** Android y Desktop.
 * **Servidor:** API construida con Ktor.
-* **Base de Datos:** * **Local:** SQLite con SQLDelight.
+* **Base de Datos:** 
+  * **Local:** SQLite con SQLDelight.
   * **Nube:** MariaDB / PostgreSQL.
 * **Seguridad:** Cifrado TLS, hashing de contraseñas y autenticación mediante 
 * JWT.
@@ -56,7 +57,7 @@ Para instalar la aplicación en un dispositivo o emulador:
 Para iniciar la API del servidor:
 - **macOS/Linux:** `./gradlew :server:run`
 - **Windows:** `.\gradlew.bat :server:run`
-- 
+
 ---
 
 ## 🛡️ Privacidad y Seguridad
