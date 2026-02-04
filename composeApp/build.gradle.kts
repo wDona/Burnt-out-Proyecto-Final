@@ -46,7 +46,7 @@ kotlin {
 
 android {
     namespace = "dev.wdona.burnt_out"
-    compileSdk = libs.versions.android.compileSdk.get().toInt()
+    compileSdkVersion(libs.versions.android.compileSdk.get().toInt())
 
     defaultConfig {
         applicationId = "dev.wdona.burnt_out"
@@ -68,6 +68,9 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
+    }
+    buildFeatures {
+        viewBinding = true
     }
 }
 

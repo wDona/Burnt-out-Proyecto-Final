@@ -1,7 +1,6 @@
 package dev.wdona.burnt_out
 
-import dev.wdona.burnt_out.shared.network.RecepcionTest
-import dev.wdona.burnt_out.shared.network.RespuestaTest
+import dev.wdona.burnt_out.shared.network.Tarea
 import io.ktor.serialization.kotlinx.json.json
 import io.ktor.server.application.*
 import io.ktor.server.engine.*
@@ -27,11 +26,11 @@ fun Application.module() {
 
     routing {
         post("$API_PATH/test") {
-            val recibido = call.receive<RespuestaTest>()
+            val recibido = call.receive<Tarea>()
 
-            val respuesta = RespuestaTest(
-                subject = "Re: ${recibido.subject}. JSON Recibido",
-                cuerpo = "Felicidades, el json se ha enviado correctamente"
+            val respuesta = Tarea(
+                subject = recibido.subject,
+                cuerpo = recibido.cuerpo
             )
 
             call.respond(respuesta)

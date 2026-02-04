@@ -22,17 +22,15 @@ open class KtorApi {
         }
     }
 
-    suspend fun obtenerRespuesta(): RespuestaTest {
+    suspend fun obtenerRespuesta(): Tarea {
         // Ktor hace el GET y convierte el JSON a tu Data Class automáticamente
         return client.get("http://$HOST:8080/api/test").body()
     }
 
-    suspend fun enviarDatos(respuestaTest: RespuestaTest): RespuestaTest {
-        val test = RespuestaTest(subject = "Esto es una prueba", cuerpo = "Esto es el cuerpo de la prueba")
-
-        val respuesta: RespuestaTest = client.post("http://$HOST:8080/api/test") {
+    suspend fun hacerPeticion(respuestaTest: Tarea): Tarea {
+        val respuesta: Tarea = client.post("http://$HOST:8080/api/test") {
             contentType(ContentType.Application.Json)
-            setBody<RespuestaTest>(test) // Enviamos el objeto (Ktor lo hace JSON)
+            setBody<Tarea>(respuestaTest) // Enviamos el objeto (Ktor lo hace JSON)
         }.body() // Recibimos la respuesta (Ktor la hace objeto)
 
         return respuesta
