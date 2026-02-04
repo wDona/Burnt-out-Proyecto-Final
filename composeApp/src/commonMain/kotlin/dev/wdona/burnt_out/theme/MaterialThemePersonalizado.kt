@@ -1,4 +1,4 @@
-package dev.wdona.burnt_out
+package dev.wdona.burnt_out.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
@@ -8,7 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 
 
-// 0x A R G B
+// 0x A R G B --- #AA3388
 private val lightPrimary = Color(0xFF8c156e)
 private val lightSecondary = Color(0xFF755166)
 private val lightTertiary = Color(0xFF8b4f2f)

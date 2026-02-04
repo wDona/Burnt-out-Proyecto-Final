@@ -2,6 +2,7 @@ package dev.wdona.burnt_out
 
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
+import dev.wdona.burnt_out.viewmodels.MainViewModelFactory
 
 fun main() = application {
     Window(
@@ -9,7 +10,7 @@ fun main() = application {
         alwaysOnTop = true,
         title = "Burnt-out",
     ) {
-        val factory = ViewModelFactory()
+        val factory = MainViewModelFactory()
         App(factory)
     }
 }
