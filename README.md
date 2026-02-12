@@ -59,4 +59,4 @@ Para iniciar la API del servidor:
 * **Consentimiento:** Se requiere aceptación explícita antes del tratamiento de datos.
 
 ---
-*Desarrollado por wDona*. *![He usado material theme builder]https://material-foundation.github.io/material-theme-builder/*
+*Desarrollado por wDona*. *![He usado material theme builder](https://material-foundation.github.io/material-theme-builder/)*
