@@ -42,7 +42,7 @@ class MenuCrearTareaScreen(val factory: TareaViewModelFactory) : Screen {
         val viewModel: TareaViewModel = remember { factory.create() }
 
         MenuCrearTareaContent(
-            viewModel = viewModel,
+            tareaViewModel = viewModel,
             ajustes = {
                 navigator.push(SettingsScreen(factory))
             },
@@ -54,14 +54,14 @@ class MenuCrearTareaScreen(val factory: TareaViewModelFactory) : Screen {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MenuCrearTareaContent(viewModel: TareaViewModel, ajustes: () -> Unit, onVolver: () -> Unit) {
+fun MenuCrearTareaContent(tareaViewModel: TareaViewModel, ajustes: () -> Unit, onVolver: () -> Unit) {
     // Actualiza la informacion segun uiState
     // val uiState by viewModel.uiState.collectAsState()
-    var textStateSubject by remember { mutableStateOf("") }
-    var textStateCuerpo by remember { mutableStateOf("") }
-    val listaComponentes by viewModel.listaTareas.collectAsState()
-    val focusRequesterCuerpo = remember { FocusRequester() }
-    val focusRequesterSubject = remember { FocusRequester() }
+    var textStateNombreTarea by remember { mutableStateOf("") }
+    var textStateDescripcion by remember { mutableStateOf("") }
+    val listaComponentes by tareaViewModel.listaTareas.collectAsState()
+    val focusRequesterNombreTarea = remember { FocusRequester() }
+    val focusRequesterDescripcion = remember { FocusRequester() }
 
     val navigator = LocalNavigator.currentOrThrow // Obtienes el GPS
 
@@ -70,16 +70,16 @@ fun MenuCrearTareaContent(viewModel: TareaViewModel, ajustes: () -> Unit, onVolv
     }
 
     LaunchedEffect(Unit) {
-        focusRequesterSubject.requestFocus()
+        focusRequesterNombreTarea.requestFocus()
     }
 
     val ejecutarEnvio = {
-        if (textStateSubject.isNotBlank()) {
-            viewModel.crearTarea(textStateSubject, textStateCuerpo)
+        if (textStateNombreTarea.isNotBlank()) {
+            tareaViewModel.crearTarea(0, textStateNombreTarea, textStateDescripcion, 0)
 
-            textStateSubject = ""
-            textStateCuerpo = ""
-            focusRequesterSubject.requestFocus()
+            textStateNombreTarea = ""
+            textStateDescripcion = ""
+            focusRequesterNombreTarea.requestFocus()
             true
         }
         false
@@ -99,7 +99,7 @@ fun MenuCrearTareaContent(viewModel: TareaViewModel, ajustes: () -> Unit, onVolv
             FloatingActionButton(
                 onClick = {
                     if (ejecutarEnvio()) {
-                        focusRequesterCuerpo.requestFocus()
+                        focusRequesterDescripcion.requestFocus()
                     }
                 },
                 containerColor = MaterialTheme.colorScheme.primary
@@ -116,28 +116,28 @@ fun MenuCrearTareaContent(viewModel: TareaViewModel, ajustes: () -> Unit, onVolv
                     .padding(horizontal = 16.dp),
                 horizontalAlignment = Alignment.CenterHorizontally) {
                 OutlinedTextField(
-                    value = textStateSubject, // El valor que se muestra
+                    value = textStateNombreTarea, // El valor que se muestra
                     onValueChange = { newText ->
-                        textStateSubject = newText
+                        textStateNombreTarea = newText
                     },
                     label = { Text("Titulo") },
                     placeholder = { Text("Ej. Hacer la compra") },
                     singleLine = true,
                     modifier = Modifier
-                        .focusRequester(focusRequesterSubject)
+                        .focusRequester(focusRequesterNombreTarea)
                         .fillMaxWidth(),
                     keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next)
                 )
 
                 OutlinedTextField(
-                    value = textStateCuerpo, // El valor que se muestra
+                    value = textStateDescripcion, // El valor que se muestra
                     onValueChange = { newText ->
-                        textStateCuerpo = newText
+                        textStateDescripcion = newText
                     },
                     label = { Text("Descripcion") },
                     placeholder = { Text("Ej. Comprar patatas y verduras") },
                     modifier = Modifier
-                        .focusRequester(focusRequesterCuerpo)
+                        .focusRequester(focusRequesterDescripcion)
                         .fillMaxHeight((1f/6f))
                         .fillMaxWidth(),
                     keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
