@@ -1,5 +1,7 @@
 package dev.wdona.burnt_out.viewmodels
 
-class PerfilViewModel {
+import dev.wdona.burnt_out.shared.cache.DatabaseDriverFactory
+
+class PerfilViewModel(driverFactory: DatabaseDriverFactory) {
     
 }
