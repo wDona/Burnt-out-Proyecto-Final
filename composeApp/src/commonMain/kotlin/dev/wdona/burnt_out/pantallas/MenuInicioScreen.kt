@@ -68,7 +68,7 @@ fun HomeContent(
                 modifier = Modifier.fillMaxWidth().height(80.dp)
             ) {
                 Spacer(Modifier.width(8.dp))
-                Text("Crear Nueva Tarea")
+                Text("Tableros")
             }
 
             // Botón para Ver leaderboard
@@ -77,7 +77,7 @@ fun HomeContent(
                 modifier = Modifier.fillMaxWidth().height(80.dp)
             ) {
                 Spacer(Modifier.width(8.dp))
-                Text("Mis Tareas")
+                Text("Leaderboard")
             }
 
             // Botón para Ver equipo en el que esta el usuario
@@ -86,13 +86,13 @@ fun HomeContent(
                 modifier = Modifier.fillMaxWidth().height(80.dp)
             ) {
                 Spacer(Modifier.width(8.dp))
-                Text("Mis Tareas")
+                Text("Mi Equipo")
             }
 
             // Botón para ver perfil
             TextButton(
                 onClick = onNavegarAPerfil,
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth().height(80.dp)
             ) {
                 Text("Ver mi Perfil")
             }
