@@ -25,8 +25,7 @@ y **Compose** para la interfaz de usuario.
 * **Base de Datos:** 
   * **Local:** SQLite con SQLDelight.
   * **Nube:** MariaDB / PostgreSQL.
-* **Seguridad:** Cifrado TLS, hashing de contraseñas y autenticación mediante 
-* JWT.
+* **Seguridad:** Cifrado TLS, hashing de contraseñas y autenticación mediante JWT.
 
 ---
 
