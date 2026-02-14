@@ -32,6 +32,7 @@ import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
+import dev.wdona.burnt_out.components.BotonVolver
 import dev.wdona.burnt_out.viewmodels.TareaViewModel
 import dev.wdona.burnt_out.viewmodelfactories.TareaViewModelFactory
 
@@ -89,9 +90,7 @@ fun MenuCrearTareaContent(tareaViewModel: TareaViewModel, ajustes: () -> Unit, o
             TopAppBar(
                 title = { Text("Mis Tareas") },
                 navigationIcon = {
-                    TextButton(onClick = onVolver) {
-                        Text("< Volver")
-                    }
+                    BotonVolver { onVolver() }
                 }
             )
         },

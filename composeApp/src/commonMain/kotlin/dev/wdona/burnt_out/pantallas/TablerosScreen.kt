@@ -21,6 +21,7 @@ import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
+import dev.wdona.burnt_out.components.BotonVolver
 import dev.wdona.burnt_out.components.CardTablero
 import dev.wdona.burnt_out.viewmodelfactories.TableroViewModelFactory
 import dev.wdona.burnt_out.viewmodels.TableroViewModel
@@ -47,9 +48,7 @@ class TablerosScreen(val factory: TableroViewModelFactory) : Screen {
                 TopAppBar(
                     title = { Text("Tableros") },
                     navigationIcon = {
-                        TextButton(onClick = onVolver) {
-                            Text("< Volver")
-                        }
+                        BotonVolver { onVolver() }
                     }
                 )
             }

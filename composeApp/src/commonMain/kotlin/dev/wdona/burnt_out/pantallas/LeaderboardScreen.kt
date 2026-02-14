@@ -12,6 +12,7 @@ import androidx.compose.ui.Modifier
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
+import dev.wdona.burnt_out.components.BotonVolver
 import dev.wdona.burnt_out.viewmodelfactories.EquipoViewModelFactory
 import dev.wdona.burnt_out.viewmodelfactories.TareaViewModelFactory
 
@@ -32,9 +33,7 @@ fun LeaderboardContent(onVolver: () -> Unit) {
             TopAppBar(
                 title = { Text("Leaderboard") },
                 navigationIcon = {
-                    TextButton(onClick = onVolver) {
-                        Text("< Volver")
-                    }
+                    BotonVolver { onVolver() }
                 }
             )
         }

@@ -12,6 +12,7 @@ import androidx.compose.ui.Modifier
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
+import dev.wdona.burnt_out.components.BotonVolver
 import dev.wdona.burnt_out.viewmodelfactories.PerfilViewModelFactory
 import dev.wdona.burnt_out.viewmodelfactories.TareaViewModelFactory
 
@@ -33,9 +34,7 @@ fun PerfilContent(onVolver: () -> Unit) {
             TopAppBar(
                 title = { Text("Mi perfil") },
                 navigationIcon = {
-                    TextButton(onClick = onVolver) {
-                        Text("< Volver")
-                    }
+                    BotonVolver { onVolver() }
                 }
             )
         }

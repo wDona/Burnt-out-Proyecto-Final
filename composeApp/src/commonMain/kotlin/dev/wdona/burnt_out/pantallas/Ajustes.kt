@@ -7,6 +7,7 @@ import androidx.compose.runtime.Composable
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
+import dev.wdona.burnt_out.components.BotonVolver
 import dev.wdona.burnt_out.viewmodelfactories.TareaViewModelFactory
 
 // Pantalla de Ajustes
@@ -17,9 +18,7 @@ class SettingsScreen(val factory: TareaViewModelFactory) : Screen {
 
         Column {
             Text("Configuración")
-            Button(onClick = { navigator.pop() }) { // Vuelve a la pantalla anterior
-                Text("Volver")
-            }
+            BotonVolver { navigator.pop() }
         }
     }
 }
