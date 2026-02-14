@@ -12,7 +12,7 @@ import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 
 
-open class KtorApi {
+open class KtorClient {
     val client = HttpClient {
         install(ContentNegotiation) {
             json(Json {
@@ -27,10 +27,10 @@ open class KtorApi {
         return client.get("http://$HOST:8080/api/test").body()
     }
 
-    suspend fun hacerPeticion(respuestaTest: Tarea): Tarea {
+    suspend fun hacerPeticion(tarea: Tarea): Tarea {
         val respuesta: Tarea = client.post("http://$HOST:8080/api/test") {
             contentType(ContentType.Application.Json)
-            setBody<Tarea>(respuestaTest) // Enviamos el objeto (Ktor lo hace JSON)
+            setBody<Tarea>(tarea) // Enviamos el objeto (Ktor lo hace JSON)
         }.body() // Recibimos la respuesta (Ktor la hace objeto)
 
         return respuesta

@@ -14,35 +14,36 @@ import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import dev.wdona.burnt_out.viewmodelfactories.TareaViewModelFactory
 
-class PerfilScreen(val factory: TareaViewModelFactory) : Screen {
+class LeaderboardScreen(factory: TareaViewModelFactory) : Screen {
     @Composable
     override fun Content() {
         val navigator = LocalNavigator.currentOrThrow // Para poder volver o ir a otra
 
-        PerfilContent(onVolver = { navigator.pop() })
+
+        TODO("Not yet implemented")
     }
 
-}
-
-@Composable
-@OptIn(ExperimentalMaterial3Api::class)
-fun PerfilContent(onVolver: () -> Unit) {
-    Scaffold(
-        topBar = {
-            TopAppBar(
-                title = { Text("Mi perfil") },
-                navigationIcon = {
-                    TextButton(onClick = onVolver) {
-                        Text("< Volver")
+    @OptIn(ExperimentalMaterial3Api::class)
+    @Composable
+    fun LeaderboardContent(onVolver: () -> Unit) {
+        Scaffold(
+            topBar = {
+                TopAppBar(
+                    title = { Text("Leaderboard") },
+                    navigationIcon = {
+                        TextButton(onClick = onVolver) {
+                            Text("< Volver")
+                        }
                     }
-                }
-            )
-        }
-    ) { paddingValues ->
-        Column (modifier = Modifier.padding(paddingValues)
-        ) {
+                )
+            }
+        ) { paddingValues ->
+            Column (modifier = Modifier.padding(paddingValues)
+            ) {
+
+            }
 
         }
-
     }
+
 }

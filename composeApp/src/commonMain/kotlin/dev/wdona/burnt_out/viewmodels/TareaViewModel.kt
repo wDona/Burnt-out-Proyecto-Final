@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
-class MainViewModel(databaseDriverFactory: DatabaseDriverFactory) {
+class TareaViewModel(databaseDriverFactory: DatabaseDriverFactory) {
     private val sdk = BurntOutSDK(databaseDriverFactory)
     // Crea un CoroutineScope
     private val viewModelScope = CoroutineScope(Dispatchers.Main)
@@ -20,29 +20,29 @@ class MainViewModel(databaseDriverFactory: DatabaseDriverFactory) {
 
     // Crea un StateFlow publico y de solo lectura para la respuesta
     val uiState: StateFlow<Tarea?> = _uiState.asStateFlow()
-    private val _listaComponentes = MutableStateFlow<List<Tarea>>(emptyList())
-    val listaComponentes: StateFlow<List<Tarea>> = _listaComponentes
+    private val _listaTareas = MutableStateFlow<List<Tarea>>(emptyList())
+    val listaTareas: StateFlow<List<Tarea>> = _listaTareas
 
 
-    fun enviarTarea(tarea: String, descripcion: String) {
-        val tareaLocal = Tarea(tarea, descripcion)
+    fun crearTarea(idTarea: Int, nombreTarea: String, descripcion: String, idTablero: Int, ) {
+        val tareaLocal = Tarea(idTarea, nombreTarea, descripcion, null, idTablero, null, null)
 
         // Primero offline, luego al servidor
-        _listaComponentes.value = _listaComponentes.value + tareaLocal
+        _listaTareas.value = _listaTareas.value + tareaLocal
 
         viewModelScope.launch {
             try {
                 val tareaServidor = sdk.postTarea(tareaLocal)
 
-                _listaComponentes.value = _listaComponentes.value.map {
-                    if (it.subject == tareaLocal.subject && it.cuerpo == tareaLocal.cuerpo) {
-                        tareaServidor ?: it
+                // Modifica la lista entera por el contenido que se devuelva uno a uno
+                _listaTareas.value = _listaTareas.value.map {
+                    if (it.titulo == tareaLocal.titulo && it.descripcion == tareaLocal.descripcion) {
+                        tareaServidor
                     } else {
                         it
                     }
                 }
             } catch (e: Exception) {
-
                 println("Error: ${e.message}")
             }
         }
