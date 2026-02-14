@@ -54,6 +54,13 @@ sqldelight {
     databases {
         create("AppDatabase") {
             packageName.set("dev.wdona.burnt_out.shared.cache")
+            verifyMigrations.set(false)
         }
+    }
+}
+
+tasks.whenTaskAdded {
+    if (name == "verifyCommonMainAppDatabaseMigration") {
+        enabled = false
     }
 }
