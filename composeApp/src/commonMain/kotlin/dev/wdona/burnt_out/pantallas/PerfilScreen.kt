@@ -12,9 +12,10 @@ import androidx.compose.ui.Modifier
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
+import dev.wdona.burnt_out.viewmodelfactories.PerfilViewModelFactory
 import dev.wdona.burnt_out.viewmodelfactories.TareaViewModelFactory
 
-class PerfilScreen(val factory: TareaViewModelFactory) : Screen {
+class PerfilScreen(val factory: PerfilViewModelFactory) : Screen {
     @Composable
     override fun Content() {
         val navigator = LocalNavigator.currentOrThrow // Para poder volver o ir a otra

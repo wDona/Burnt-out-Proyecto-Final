@@ -24,19 +24,20 @@ import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import dev.wdona.burnt_out.viewmodelfactories.EquipoViewModelFactory
+import dev.wdona.burnt_out.viewmodelfactories.PerfilViewModelFactory
 import dev.wdona.burnt_out.viewmodelfactories.TableroViewModelFactory
 import dev.wdona.burnt_out.viewmodelfactories.TareaViewModelFactory
 
-class MenuInicio(val tareaFactory: TareaViewModelFactory, val equipoFactory: EquipoViewModelFactory, val tableroFactory: TableroViewModelFactory, ) : Screen {
+class MenuInicio(val equipoFactory: EquipoViewModelFactory, val tableroFactory: TableroViewModelFactory, val perfilFactory: PerfilViewModelFactory) : Screen {
     @Composable
     override fun Content() {
-        val navigator = LocalNavigator.currentOrThrow // Para poder volver o ir a otra
+        val navigator = LocalNavigator.currentOrThrow
 
         HomeContent(
-            onNavegarATableros = { navigator.push(TablerosScreen(tareaFactory)) },
-            onNavegarAPerfil = { navigator.push(PerfilScreen(tareaFactory)) },
-            onNavegarALeaderboard = { navigator.push(LeaderboardScreen(tareaFactory)) },
-            onNavegarAEquipo = { navigator.push(EquipoScreen(tareaFactory)) }
+            onNavegarATableros = { navigator.push(TablerosScreen(tableroFactory)) },
+            onNavegarAPerfil = { navigator.push(PerfilScreen(perfilFactory)) },
+            onNavegarALeaderboard = { navigator.push(LeaderboardScreen(equipoFactory)) },
+            onNavegarAEquipo = { navigator.push(EquipoScreen(equipoFactory)) }
         )
     }
 }
@@ -66,7 +67,6 @@ fun HomeContent(
                 onClick = onNavegarATableros,
                 modifier = Modifier.fillMaxWidth().height(80.dp)
             ) {
-//                    Icon(Icons.Default.Add, contentDescription = null)
                 Spacer(Modifier.width(8.dp))
                 Text("Crear Nueva Tarea")
             }
@@ -76,17 +76,15 @@ fun HomeContent(
                 onClick = onNavegarALeaderboard,
                 modifier = Modifier.fillMaxWidth().height(80.dp)
             ) {
-//                    Icon(Icons.Default.List, contentDescription = null)
                 Spacer(Modifier.width(8.dp))
                 Text("Mis Tareas")
             }
 
-            // Botón para Ver leaderboard
+            // Botón para Ver equipo en el que esta el usuario
             OutlinedButton(
                 onClick = onNavegarAEquipo,
                 modifier = Modifier.fillMaxWidth().height(80.dp)
             ) {
-//                    Icon(Icons.Default.List, contentDescription = null)
                 Spacer(Modifier.width(8.dp))
                 Text("Mis Tareas")
             }
