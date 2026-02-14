@@ -25,23 +25,17 @@ class TareaViewModel(databaseDriverFactory: DatabaseDriverFactory) {
 
 
     fun crearTarea(idTarea: Int, nombreTarea: String, descripcion: String, idTablero: Int, ) {
-        val tareaLocal = Tarea(idTarea, nombreTarea, descripcion, null, idTablero, null, null)
+        val tareaLocal = Tarea(idTarea, nombreTarea, descripcion, "pendiente", idTablero, 0,
+            listOf(0))
 
         // Primero offline, luego al servidor
         _listaTareas.value = _listaTareas.value + tareaLocal
 
         viewModelScope.launch {
             try {
-                val tareaServidor = sdk.postTarea(tareaLocal)
+                val tareaServidor = sdk.crearTarea(tareaLocal)
 
-                // Modifica la lista entera por el contenido que se devuelva uno a uno
-                _listaTareas.value = _listaTareas.value.map {
-                    if (it.titulo == tareaLocal.titulo && it.descripcion == tareaLocal.descripcion) {
-                        tareaServidor
-                    } else {
-                        it
-                    }
-                }
+
             } catch (e: Exception) {
                 println("Error: ${e.message}")
             }

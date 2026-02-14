@@ -4,6 +4,7 @@ import dev.wdona.burnt_out.shared.cache.AppDatabase
 import dev.wdona.burnt_out.shared.cache.DatabaseDriverFactory
 import dev.wdona.burnt_out.shared.network.KtorClient
 import dev.wdona.burnt_out.shared.network.Tarea
+import dev.wdona.burntout.shared.cache.AppDatabaseQueries
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -12,11 +13,11 @@ class BurntOutSDK(databaseDriverFactory: DatabaseDriverFactory) {
     private val api = KtorClient()
 
     @Throws(Exception::class)
-    suspend fun postTarea(tarea: Tarea): Tarea {
+    private suspend fun _postTarea(tarea: Tarea): Tarea {
         return api.hacerPeticion(tarea)
     }
 
-    suspend fun dbAddTarea(tarea: Tarea): Boolean {
+    private suspend fun _dbAddTarea(tarea: Tarea): Boolean {
         return try {
             withContext(Dispatchers.IO) {
                 database.appDatabaseQueries.insertTarea(
@@ -33,9 +34,32 @@ class BurntOutSDK(databaseDriverFactory: DatabaseDriverFactory) {
         }
     }
 
-    suspend fun crearTarea(tarea: Tarea): Tarea {
-        val tareaCreada = postTarea(tarea)
-        dbAddTarea(tareaCreada)
-        return tareaCreada
+    private suspend fun _dbAddTareaPendiente(tarea: Tarea): Boolean {
+        return try {
+            withContext(Dispatchers.IO) {
+                database.appDatabaseQueries.insertTareaPendiente(
+                    tarea.titulo,
+                    tarea.descripcion,
+                    tarea.estado,
+                    tarea.idTableroPerteneciente.toLong(),
+                    tarea.idUsuarioAsignado,
+                )
+                true
+            }
+        } catch (e: Exception) {
+            false
+        }
+    }
+
+    suspend fun crearTarea(tarea: Tarea): Boolean {
+        _dbAddTarea(tarea)
+        try {
+            _postTarea(tarea)
+        } catch (e: Exception) {
+
+            println("Error al enviar al servidor: ${e.message}")
+            return false
+        }
+        return true
     }
 }
