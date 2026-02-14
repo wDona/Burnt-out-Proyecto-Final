@@ -20,7 +20,6 @@ class LeaderboardScreen(factory: EquipoViewModelFactory) : Screen {
     override fun Content() {
         val navigator = LocalNavigator.currentOrThrow // Para poder volver o ir a otra
 
-
         LeaderboardContent { navigator.pop() }
     }
 }
