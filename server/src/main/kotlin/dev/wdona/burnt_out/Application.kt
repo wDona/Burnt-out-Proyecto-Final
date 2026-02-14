@@ -29,8 +29,13 @@ fun Application.module() {
             val recibido = call.receive<Tarea>()
 
             val respuesta = Tarea(
+                idTarea = System.currentTimeMillis().toInt(),
                 titulo = recibido.titulo,
-                descripcion = recibido.descripcion
+                descripcion = recibido.descripcion,
+                estado = "pendiente",
+                idTableroPerteneciente = recibido.idTableroPerteneciente,
+                idUsuarioAsignado = recibido.idUsuarioAsignado,
+                idSubtareas = recibido.idSubtareas
             )
 
             call.respond(respuesta)
