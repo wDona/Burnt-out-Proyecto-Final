@@ -1,24 +1,17 @@
 # Burn't out
 
-**Burn't out** es una plataforma de gestión de tareas y proyectos diseñada para 
-equilibrar la productividad con el bienestar mental. 
-Inspirada en herramientas como Trello, su objetivo principal es prevenir el síndrome de 
-Burnout en entornos corporativos mediante el monitoreo saludable del estado de ánimo y la carga de 
-trabajo.
+**Burn't out** es una plataforma de gestión de tareas y proyectos diseñada para equilibrar la productividad con el bienestar mental. 
+Inspirada en herramientas como Trello, su objetivo principal es prevenir el síndrome de Burnout en entornos corporativos mediante el monitoreo saludable del estado de ánimo y la carga de trabajo.
 
 ---
 
 ## 🌟 Características Principales
 
-* **Gestión Visual:** Organización mediante tableros, tarjetas, tareas y subtareas: 
-* **Monitoreo de Bienestar:** Encuestas rápidas (menos de 15 segundos) y anónimas sobre
-* estrés y ánimo:
-* **Prevención Activa:** La app evalúa el riesgo de agotamiento, genera alertas y puede 
-* limitar la asignación de tareas si el riesgo es alto.
-* **Cooperación y Gamificación:** Sistema de recompensas y tablas de clasificación para 
-* fomentar el trabajo en equipo y las pausas necesarias.
-* **Modo Offline:** Capacidad de trabajar sin conexión, priorizando la sincronización de 
-* cambios al recuperar el acceso a internet.
+* **Gestión Visual:** Organización mediante tableros, tarjetas, tareas y subtareas
+* **Monitoreo de Bienestar:** Encuestas rápidas (menos de 15 segundos) y anónimas sobre estrés y ánimo
+* **Prevención Activa:** La app evalúa el riesgo de agotamiento, genera alertas y puede limitar la asignación de tareas si el riesgo es alto.
+* **Cooperación y Gamificación:** Sistema de recompensas y tablas de clasificación para fomentar el trabajo en equipo y las pausas necesarias.
+* **Modo Offline:** Capacidad de trabajar sin conexión, priorizando la sincronización de cambios al recuperar el acceso a internet.
 
 ---
 
@@ -66,4 +59,4 @@ Para iniciar la API del servidor:
 * **Consentimiento:** Se requiere aceptación explícita antes del tratamiento de datos.
 
 ---
-*Desarrollado por wDona*.
+*Desarrollado por wDona*. *He usado [Material Theme Builder](https://material-foundation.github.io/material-theme-builder/)*
