@@ -21,30 +21,28 @@ class LeaderboardScreen(factory: EquipoViewModelFactory) : Screen {
         val navigator = LocalNavigator.currentOrThrow // Para poder volver o ir a otra
 
 
-        TODO("Not yet implemented")
+        LeaderboardContent { navigator.pop() }
     }
+}
 
-    @OptIn(ExperimentalMaterial3Api::class)
-    @Composable
-    fun LeaderboardContent(onVolver: () -> Unit) {
-        Scaffold(
-            topBar = {
-                TopAppBar(
-                    title = { Text("Leaderboard") },
-                    navigationIcon = {
-                        TextButton(onClick = onVolver) {
-                            Text("< Volver")
-                        }
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun LeaderboardContent(onVolver: () -> Unit) {
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = { Text("Leaderboard") },
+                navigationIcon = {
+                    TextButton(onClick = onVolver) {
+                        Text("< Volver")
                     }
-                )
-            }
-        ) { paddingValues ->
-            Column (modifier = Modifier.padding(paddingValues)
-            ) {
-
-            }
+                }
+            )
+        }
+    ) { paddingValues ->
+        Column (modifier = Modifier.padding(paddingValues)
+        ) {
 
         }
     }
-
 }
