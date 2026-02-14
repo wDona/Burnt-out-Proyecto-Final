@@ -23,17 +23,20 @@ import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
-import dev.wdona.burnt_out.viewmodels.MainViewModelFactory
+import dev.wdona.burnt_out.viewmodelfactories.EquipoViewModelFactory
+import dev.wdona.burnt_out.viewmodelfactories.TableroViewModelFactory
+import dev.wdona.burnt_out.viewmodelfactories.TareaViewModelFactory
 
-class MenuInicio(val factory: MainViewModelFactory) : Screen {
+class MenuInicio(val tareaFactory: TareaViewModelFactory, val equipoFactory: EquipoViewModelFactory, val tableroFactory: TableroViewModelFactory, ) : Screen {
     @Composable
     override fun Content() {
         val navigator = LocalNavigator.currentOrThrow // Para poder volver o ir a otra
 
         HomeContent(
-            onNavegarACrear = { navigator.push(MenuCrearTareaScreen(factory)) },
-            onNavegarAPerfil = { navigator.push(PerfilScreen(factory)) },
-            onNavegarATareas = { navigator.push(ListaTareasScreen(factory)) }
+            onNavegarATableros = { navigator.push(TablerosScreen(tareaFactory)) },
+            onNavegarAPerfil = { navigator.push(PerfilScreen(tareaFactory)) },
+            onNavegarALeaderboard = { navigator.push(LeaderboardScreen(tareaFactory)) },
+            onNavegarAEquipo = { navigator.push(EquipoScreen(tareaFactory)) }
         )
     }
 }
@@ -41,12 +44,13 @@ class MenuInicio(val factory: MainViewModelFactory) : Screen {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeContent(
-    onNavegarACrear: () -> Unit,
+    onNavegarATableros: () -> Unit,
     onNavegarAPerfil: () -> Unit,
-    onNavegarATareas: () -> Unit
+    onNavegarALeaderboard: () -> Unit,
+    onNavegarAEquipo: () -> Unit
 ) {
     Scaffold(
-        topBar = { TopAppBar(title = { Text("Burn't out - Menú") }) }
+        topBar = { TopAppBar(title = { Text("Menú") }) }
     ) { paddingValues: PaddingValues ->
 
         Column(
@@ -57,9 +61,9 @@ fun HomeContent(
             verticalArrangement = Arrangement.spacedBy(16.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            // Botón para Crear Tarea
+            // Botón para ver tableros
             Button(
-                onClick = onNavegarACrear,
+                onClick = onNavegarATableros,
                 modifier = Modifier.fillMaxWidth().height(80.dp)
             ) {
 //                    Icon(Icons.Default.Add, contentDescription = null)
@@ -67,9 +71,9 @@ fun HomeContent(
                 Text("Crear Nueva Tarea")
             }
 
-            // Botón para Ver Tareas
+            // Botón para Ver leaderboard
             OutlinedButton(
-                onClick = onNavegarATareas,
+                onClick = onNavegarALeaderboard,
                 modifier = Modifier.fillMaxWidth().height(80.dp)
             ) {
 //                    Icon(Icons.Default.List, contentDescription = null)
@@ -77,7 +81,17 @@ fun HomeContent(
                 Text("Mis Tareas")
             }
 
-            // Botón para Perfil
+            // Botón para Ver leaderboard
+            OutlinedButton(
+                onClick = onNavegarAEquipo,
+                modifier = Modifier.fillMaxWidth().height(80.dp)
+            ) {
+//                    Icon(Icons.Default.List, contentDescription = null)
+                Spacer(Modifier.width(8.dp))
+                Text("Mis Tareas")
+            }
+
+            // Botón para ver perfil
             TextButton(
                 onClick = onNavegarAPerfil,
                 modifier = Modifier.fillMaxWidth()
