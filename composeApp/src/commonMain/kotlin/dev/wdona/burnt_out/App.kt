@@ -11,11 +11,11 @@ import dev.wdona.burnt_out.pantallas.MenuInicio
 import dev.wdona.burnt_out.theme.CustomMaterialTheme
 import dev.wdona.burnt_out.theme.DarkColorScheme
 import dev.wdona.burnt_out.theme.LightColorScheme
-import dev.wdona.burnt_out.viewmodels.MainViewModelFactory
+import dev.wdona.burnt_out.viewmodelfactories.TareaViewModelFactory
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun App(factory: MainViewModelFactory) {
+fun App(factory: TareaViewModelFactory) {
     CustomMaterialTheme {
         Surface(
             modifier = Modifier.fillMaxSize(),

@@ -29,8 +29,8 @@ fun Application.module() {
             val recibido = call.receive<Tarea>()
 
             val respuesta = Tarea(
-                subject = recibido.subject,
-                cuerpo = recibido.cuerpo
+                titulo = recibido.titulo,
+                descripcion = recibido.descripcion
             )
 
             call.respond(respuesta)

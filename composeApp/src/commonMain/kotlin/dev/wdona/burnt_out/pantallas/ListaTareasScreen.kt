@@ -18,22 +18,21 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import dev.wdona.burnt_out.components.CardTarea
-import dev.wdona.burnt_out.viewmodels.MainViewModel
-import dev.wdona.burnt_out.viewmodels.MainViewModelFactory
+import dev.wdona.burnt_out.viewmodels.TareaViewModel
+import dev.wdona.burnt_out.viewmodelfactories.TareaViewModelFactory
 
-class ListaTareasScreen(val factory: MainViewModelFactory) : Screen {
+class ListaTareasScreen(val tareaFactory: TareaViewModelFactory) : Screen {
     @Composable
     override fun Content() {
         val navigator = LocalNavigator.currentOrThrow // Para poder volver o ir a otra
-        val viewModel: MainViewModel = remember { factory.create() }
+        val tareaViewModel: TareaViewModel = remember { tareaFactory.create() }
 
         ListaTareasContent(
-            viewModel = viewModel,
+            tareaViewModel = tareaViewModel,
             onVolver = { navigator.pop() }
         )
     }
@@ -41,8 +40,8 @@ class ListaTareasScreen(val factory: MainViewModelFactory) : Screen {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ListaTareasContent(viewModel: MainViewModel, onVolver: () -> Unit) {
-    val listaComponentes by viewModel.listaComponentes.collectAsState()
+fun ListaTareasContent(tareaViewModel: TareaViewModel, onVolver: () -> Unit) {
+    val listaTareas by tareaViewModel.listaTareas.collectAsState()
 
     Scaffold(
         topBar = {
@@ -66,9 +65,9 @@ fun ListaTareasContent(viewModel: MainViewModel, onVolver: () -> Unit) {
                     .padding(paddingValues)
 
             ){
-                items(listaComponentes) {
-                        componente ->
-                    CardTarea(componente.subject, componente.cuerpo)
+                items(listaTareas) {
+                        tarea ->
+                    CardTarea(tarea.titulo, tarea.descripcion)
                 }
             }
         }

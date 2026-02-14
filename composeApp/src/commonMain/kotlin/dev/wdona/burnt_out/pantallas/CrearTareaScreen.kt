@@ -1,15 +1,11 @@
 package dev.wdona.burnt_out.pantallas
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.ime
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -32,20 +28,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.text.input.ImeAction
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
-import dev.wdona.burnt_out.viewmodels.MainViewModel
-import dev.wdona.burnt_out.viewmodels.MainViewModelFactory
-import dev.wdona.burnt_out.theme.getColorScheme
+import dev.wdona.burnt_out.viewmodels.TareaViewModel
+import dev.wdona.burnt_out.viewmodelfactories.TareaViewModelFactory
 
-class MenuCrearTareaScreen(val factory: MainViewModelFactory) : Screen {
+class MenuCrearTareaScreen(val factory: TareaViewModelFactory) : Screen {
     @Composable
     override fun Content() {
         val navigator = LocalNavigator.currentOrThrow // Para poder volver o ir a otra
-        val viewModel: MainViewModel = remember { factory.create() }
+        val viewModel: TareaViewModel = remember { factory.create() }
 
         MenuCrearTareaContent(
             viewModel = viewModel,
@@ -60,18 +54,18 @@ class MenuCrearTareaScreen(val factory: MainViewModelFactory) : Screen {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MenuCrearTareaContent(viewModel: MainViewModel, ajustes: () -> Any, onVolver: () -> Unit) {
+fun MenuCrearTareaContent(viewModel: TareaViewModel, ajustes: () -> Unit, onVolver: () -> Unit) {
     // Actualiza la informacion segun uiState
     // val uiState by viewModel.uiState.collectAsState()
     var textStateSubject by remember { mutableStateOf("") }
     var textStateCuerpo by remember { mutableStateOf("") }
-    val listaComponentes by viewModel.listaComponentes.collectAsState()
+    val listaComponentes by viewModel.listaTareas.collectAsState()
     val focusRequesterCuerpo = remember { FocusRequester() }
     val focusRequesterSubject = remember { FocusRequester() }
 
     val navigator = LocalNavigator.currentOrThrow // Obtienes el GPS
 
-    Button(onClick = ajustes as () -> Unit) {
+    Button(onClick = ajustes) {
         Text("Ir a Ajustes")
     }
 
@@ -81,7 +75,7 @@ fun MenuCrearTareaContent(viewModel: MainViewModel, ajustes: () -> Any, onVolver
 
     val ejecutarEnvio = {
         if (textStateSubject.isNotBlank()) {
-            viewModel.enviarTarea(textStateSubject, textStateCuerpo)
+            viewModel.crearTarea(textStateSubject, textStateCuerpo)
 
             textStateSubject = ""
             textStateCuerpo = ""
@@ -144,7 +138,7 @@ fun MenuCrearTareaContent(viewModel: MainViewModel, ajustes: () -> Any, onVolver
                     placeholder = { Text("Ej. Comprar patatas y verduras") },
                     modifier = Modifier
                         .focusRequester(focusRequesterCuerpo)
-                        .fillMaxHeight((1f/3f))
+                        .fillMaxHeight((1f/6f))
                         .fillMaxWidth(),
                     keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
                     singleLine = false
