@@ -11,18 +11,21 @@ import dev.wdona.burnt_out.pantallas.MenuInicio
 import dev.wdona.burnt_out.theme.CustomMaterialTheme
 import dev.wdona.burnt_out.theme.DarkColorScheme
 import dev.wdona.burnt_out.theme.LightColorScheme
+import dev.wdona.burnt_out.viewmodelfactories.EquipoViewModelFactory
+import dev.wdona.burnt_out.viewmodelfactories.PerfilViewModelFactory
+import dev.wdona.burnt_out.viewmodelfactories.TableroViewModelFactory
 import dev.wdona.burnt_out.viewmodelfactories.TareaViewModelFactory
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun App(factory: TareaViewModelFactory) {
+fun App(tareaFactory: TareaViewModelFactory, equipoViewModelFactory: EquipoViewModelFactory, perfilViewModelFactory: PerfilViewModelFactory, tableroViewModelFactory: TableroViewModelFactory) {
     CustomMaterialTheme {
         Surface(
             modifier = Modifier.fillMaxSize(),
             color = if (isSystemInDarkTheme()) DarkColorScheme.background else LightColorScheme.background
 
         ) {
-            Navigator(MenuInicio(factory))
+            Navigator(MenuInicio(equipoViewModelFactory, tableroViewModelFactory, perfilViewModelFactory))
         }
     }
 }
