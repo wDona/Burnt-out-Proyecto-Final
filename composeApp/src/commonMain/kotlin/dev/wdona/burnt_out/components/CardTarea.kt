@@ -16,7 +16,7 @@ import androidx.compose.ui.unit.dp
 import dev.wdona.burnt_out.theme.getColorScheme
 
 @Composable
-fun CardTarea(tituloTarea: String, descripcionTarea: String) {
+fun CardTarea(tituloTarea: String, descripcionTarea: String?) {
     Button (
         modifier = Modifier
             .fillMaxWidth(1f/3f)
@@ -30,7 +30,7 @@ fun CardTarea(tituloTarea: String, descripcionTarea: String) {
             modifier = Modifier.fillMaxWidth()
         )
 
-        if (descripcionTarea.isNotBlank()) {
+        if (descripcionTarea != null && descripcionTarea.isNotBlank()) {
             Text(text = descripcionTarea,
                 textAlign = TextAlign.Center,
                 modifier = Modifier.fillMaxWidth())
