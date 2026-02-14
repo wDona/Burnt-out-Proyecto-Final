@@ -32,7 +32,7 @@ class TablerosScreen(val factory: TableroViewModelFactory) : Screen {
         val tableroViewModel: TableroViewModel = remember { factory.create() }
 
         MenuTableros(
-            ajustes = {}, onVolver = {},
+            ajustes = {}, onVolver = { navigator.pop() },
             tableroViewModel = tableroViewModel
         )
     }
