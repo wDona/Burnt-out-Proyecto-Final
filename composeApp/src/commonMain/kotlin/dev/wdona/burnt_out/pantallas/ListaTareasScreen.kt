@@ -28,7 +28,7 @@ import dev.wdona.burnt_out.viewmodelfactories.TareaViewModelFactory
 class ListaTareasScreen(val tareaFactory: TareaViewModelFactory) : Screen {
     @Composable
     override fun Content() {
-        val navigator = LocalNavigator.currentOrThrow // Para poder volver o ir a otra
+        val navigator = LocalNavigator.currentOrThrow
         val tareaViewModel: TareaViewModel = remember { tareaFactory.create() }
 
         ListaTareasContent(

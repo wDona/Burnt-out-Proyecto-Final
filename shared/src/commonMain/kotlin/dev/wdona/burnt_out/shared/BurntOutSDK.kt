@@ -4,6 +4,8 @@ import dev.wdona.burnt_out.shared.cache.AppDatabase
 import dev.wdona.burnt_out.shared.cache.DatabaseDriverFactory
 import dev.wdona.burnt_out.shared.network.KtorClient
 import dev.wdona.burnt_out.shared.network.Tarea
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 class BurntOutSDK(databaseDriverFactory: DatabaseDriverFactory) {
     private val database = AppDatabase(databaseDriverFactory.createDriver())
@@ -14,7 +16,26 @@ class BurntOutSDK(databaseDriverFactory: DatabaseDriverFactory) {
         return api.hacerPeticion(tarea)
     }
 
-    fun postTareaOffline(tarea: Tarea) {
-        database.createTarea(tarea)
+    suspend fun dbAddTarea(tarea: Tarea): Boolean {
+        return try {
+            withContext(Dispatchers.IO) {
+                database.appDatabaseQueries.insertTarea(
+                    tarea.titulo,
+                    tarea.descripcion,
+                    tarea.estado,
+                    tarea.idTableroPerteneciente.toLong(),
+                    tarea.idUsuarioAsignado,
+                )
+                true
+            }
+        } catch (e: Exception) {
+            false
+        }
+    }
+
+    suspend fun crearTarea(tarea: Tarea): Tarea {
+        val tareaCreada = postTarea(tarea)
+        dbAddTarea(tareaCreada)
+        return tareaCreada
     }
 }
