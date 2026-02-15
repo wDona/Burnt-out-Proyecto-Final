@@ -1,10 +1,12 @@
 package dev.wdona.burnt_out.shared
 
+import dev.wdona.burnt_out.Equipo
 import dev.wdona.burnt_out.shared.cache.AppDatabase
 import dev.wdona.burnt_out.shared.cache.DatabaseDriverFactory
 import dev.wdona.burnt_out.shared.network.KtorClient
 import dev.wdona.burnt_out.Tablero
 import dev.wdona.burnt_out.Tarea
+import dev.wdona.burnt_out.Usuario
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -107,6 +109,51 @@ class BurntOutSDK(databaseDriverFactory: DatabaseDriverFactory) {
                     titulo = it.Titulo,
                     idOrganizacion = it.FK_ID_Org,
                     idEquipo = it.FK_ID_Equipo
+                )
+            }
+    }
+
+    fun obtenerMiembrosDeEquipoLocal(idEquipo: Long): List<Usuario> {
+        return appDatabase.appDatabaseQueries.getUsuariosByEquipo(idEquipo).executeAsList()
+            .map {
+                Usuario(
+                    idUsuario = it.ID_Usuario,
+                    nombre = it.Nombre,
+                    username = it.Username,
+                    password = "",
+                    idOrganizacion = it.FK_ID_Organizacion,
+                    idEquipo = idEquipo,
+                    riesgoBurnout = it.Riesgo_Burnout,
+                    descripcion = it.Descripcion
+
+
+                )
+            }
+    }
+
+    suspend fun crearEquipo(equipo: Equipo): Boolean {
+        return try {
+            withContext(Dispatchers.IO) {
+                appDatabase.appDatabaseQueries.insertEquipo(
+                    equipo.titulo,
+                    equipo.idOrganizacion
+                )
+                true
+            }
+        } catch (e: Exception) {
+            false
+        }
+    }
+
+    fun obtenerEquiposPorOrganizacionLocal(idOrganizacion: Long): List<Equipo> {
+        return appDatabase.appDatabaseQueries.getEquiposByOrg(idOrganizacion).executeAsList()
+            .map { equipo ->
+                Equipo(
+                    idEquipo = equipo.ID_Equipo,
+                    titulo = equipo.Titulo,
+                    idOrganizacion = equipo.FK_ID_Org,
+                    puntuacion = equipo.Puntuacion,
+                    idMiembros = obtenerMiembrosDeEquipoLocal(equipo.ID_Equipo).map { miembro -> miembro.idUsuario }
                 )
             }
     }

@@ -46,7 +46,7 @@ class MenuInicio(val equipoFactory: EquipoViewModelFactory, val tableroFactory: 
                 )
             ) },
             onNavegarAPerfil = { navigator.push(PerfilScreen(perfilFactory)) },
-            onNavegarALeaderboard = { navigator.push(LeaderboardScreen(equipoFactory)) },
+            onNavegarALeaderboard = { navigator.push(LeaderboardScreen(equipoFactory, 1L)) }, // TODO: COGER ID DE LA ORG DEL USUARIO ACTIVO
             onNavegarAEquipo = { navigator.push(EquipoScreen(equipoFactory)) }
         )
     }
