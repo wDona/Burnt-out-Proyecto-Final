@@ -115,6 +115,9 @@ insertAjustes:
 INSERT OR IGNORE INTO Ajuste(Nombre_Ajuste) VALUES('Notificaciones'); -- TODO: anadir permiso en android
 INSERT OR IGNORE INTO Ajuste(Nombre_Ajuste) VALUES('Tema Oscuro');
 
+insertUsuarioBase:
+INSERT OR IGNORE INTO Usuario(Username, Contrasena, Nombre, FK_ID_Organizacion) VALUES('User', '********', 'Usuario Base', 1);
+INSERT OR IGNORE INTO User_Team(ID_Usuario, ID_Equipo) VALUES(1, 1);
 
 
 -- ===== QUERIES DE TABLAS =====
@@ -150,4 +153,8 @@ SELECT * FROM Organizacion WHERE ID_Org = ?;
 getPreguntasByOrg:
 SELECT * FROM Pregunta WHERE FK_ID_Org = ?;
 
+getRespuestasByPregunta:
+SELECT r.Respuesta, r.Anonimo, u.Nombre
+FROM Responder r JOIN Usuario u ON r.ID_Usuario = u.ID_Usuario
+WHERE r.ID_Pregunta = ?;
 

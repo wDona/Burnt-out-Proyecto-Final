@@ -25,5 +25,6 @@ actual class DatabaseDriverFactory {
         database.appDatabaseQueries.insertOrgbase()
         database.appDatabaseQueries.insertAjustes()
         database.appDatabaseQueries.insertEquipoBase()
+        database.appDatabaseQueries.insertUsuarioBase()
     }
 }
