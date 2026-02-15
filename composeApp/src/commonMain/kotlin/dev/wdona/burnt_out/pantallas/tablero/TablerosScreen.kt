@@ -5,6 +5,10 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -33,10 +37,10 @@ class TablerosScreen(val tableroFactory: TableroViewModelFactory, val tareaViewM
     override fun Content() {
         val navigator = LocalNavigator.currentOrThrow
         val tableroViewModel: TableroViewModel = remember { tableroFactory.create() }
-        val idOrg = -1
+        val idOrg = 1L
 
-        LaunchedEffect(idOrg.toLong()) {
-            { tableroViewModel.cargarTablerosPorOrganizacion(idOrg.toLong()) }
+        LaunchedEffect(idOrg) {
+            tableroViewModel.cargarTablerosPorOrganizacion(idOrg)
         }
 
         MenuTableros(
@@ -46,12 +50,13 @@ class TablerosScreen(val tableroFactory: TableroViewModelFactory, val tareaViewM
                                     },
             tableroViewModel = tableroViewModel,
             onVerTablero = {
-                idTablero ->
+                idTablero, nombreTablero ->
                     println("Entra a ver tablero")
                     println(idTablero)
                     navigator.push(
                         DetalleTableroScreen(
                             idTablero = idTablero,
+                            nombreTablero = nombreTablero,
                             tareaViewModelFactory = tareaViewModelFactory
                         )
                     )
@@ -61,7 +66,7 @@ class TablerosScreen(val tableroFactory: TableroViewModelFactory, val tareaViewM
 
     @OptIn(ExperimentalMaterial3Api::class)
     @Composable
-    fun MenuTableros(tableroViewModel: TableroViewModel, onVolver: () -> Unit, onIrACrearTablero: () -> Unit = {}, onVerTablero: (Long) -> Unit = {}) {
+    fun MenuTableros(tableroViewModel: TableroViewModel, onVolver: () -> Unit, onIrACrearTablero: () -> Unit = {}, onVerTablero: (Long, String) -> Unit) {
         val listaTableros by tableroViewModel.listaTableros.collectAsState()
 
         Scaffold(
@@ -77,27 +82,30 @@ class TablerosScreen(val tableroFactory: TableroViewModelFactory, val tareaViewM
             Column (modifier = Modifier.padding(paddingValues)
             ) {
                 Button(
-                    onClick = { onIrACrearTablero() }
+                    onClick = { onIrACrearTablero() },
+                    modifier = Modifier
+                        .padding(start = 16.dp)
                 ) {
                     Text("Crear nuevo tablero")
                 }
-                LazyColumn (
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.spacedBy(12.dp),
+                LazyVerticalGrid(
+                    columns = GridCells.Adaptive(minSize = 200.dp), // el min size es el tamanio ancho de cada tarjeta
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                    verticalArrangement = Arrangement.spacedBy(8.dp),
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(paddingValues)
+                        .padding(horizontal = 16.dp, vertical = 24.dp)
                 ) {
-                    items(listaTableros) {
-                            tablero ->
+                    items(listaTableros) { tablero ->
                         CardTablero(tablero.titulo, onClick = {
-                            onVerTablero(tablero.idTablero)
+                            onVerTablero(tablero.idTablero, tablero.titulo)
                             println("Entra a ver tablero")
                             print("Id tablero: ${tablero.idTablero}")
                         })
                     }
                 }
             }
+
         }
     }
 }

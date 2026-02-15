@@ -24,15 +24,21 @@ class TableroViewModel(databaseDriverFactory: DatabaseDriverFactory) {
     private val _listaTableros = MutableStateFlow<List<Tablero>>(emptyList())
     val listaTableros: StateFlow<List<Tablero>> = _listaTableros
 
-    fun crearTablero(idTablero: Long, nombreTablero: String) {
-        val tableroLocal = Tablero(idTablero, nombreTablero, 0, 0)
+    fun crearTablero(nombreTablero: String) {
+        val tableroLocal = Tablero(0L, nombreTablero, 1L, 1L)
 
         // Primero offline, luego al servidor
         _listaTableros.value = _listaTableros.value + tableroLocal
 
         viewModelScope.launch {
             try {
-                val tableroServidor = sdk.crearTablero(tableroLocal)
+                val resultado = sdk.crearTablero(tableroLocal)
+
+                if (resultado) {
+                    // Solo actualizar la UI después de insertar en BD
+                    val tablerosActualizados = sdk.obtenerTablerosPorOrganizacionLocal(1L)
+                    _listaTableros.value = tablerosActualizados
+                }
 
             } catch (e: Exception) {
                 println("Error: ${e.message}")

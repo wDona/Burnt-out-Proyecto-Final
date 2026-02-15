@@ -84,7 +84,7 @@ class BurntOutSDK(databaseDriverFactory: DatabaseDriverFactory) {
         return true
     }
 
-    suspend fun obtenerTareasPorTableroLocal(idTablero: Long): List<Tarea> {
+    fun obtenerTareasPorTableroLocal(idTablero: Long): List<Tarea> {
         return appDatabase.appDatabaseQueries.getTareasByTablero(idTablero).executeAsList()
             .map {
                 Tarea(
@@ -99,7 +99,7 @@ class BurntOutSDK(databaseDriverFactory: DatabaseDriverFactory) {
             }
     }
 
-    suspend fun obtenerTablerosPorOrganizacionLocal(idOrganizacion: Long): List<Tablero> {
+    fun obtenerTablerosPorOrganizacionLocal(idOrganizacion: Long): List<Tablero> {
         return appDatabase.appDatabaseQueries.getTablerosByOrg(idOrganizacion).executeAsList()
             .map {
                 Tablero(

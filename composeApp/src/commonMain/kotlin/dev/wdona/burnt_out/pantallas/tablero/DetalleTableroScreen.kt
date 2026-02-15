@@ -26,7 +26,7 @@ import dev.wdona.burnt_out.components.tarea.CardTarea
 import dev.wdona.burnt_out.viewmodelfactories.TareaViewModelFactory
 import dev.wdona.burnt_out.viewmodels.TareaViewModel
 
-class DetalleTableroScreen(val idTablero: Long, val tareaViewModelFactory: TareaViewModelFactory) : Screen {
+class DetalleTableroScreen(val idTablero: Long, val nombreTablero: String, val tareaViewModelFactory: TareaViewModelFactory) : Screen {
 
     @Composable
     override fun Content() {
@@ -42,19 +42,19 @@ class DetalleTableroScreen(val idTablero: Long, val tareaViewModelFactory: Tarea
             tareaViewModel.cargarTareasPorTablero(idTablero)
         }
 
-        DetalleTableroContent(tareaViewModel) { navigator.pop() }
+        DetalleTableroContent(tareaViewModel, nombreTablero) { navigator.pop() }
     }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DetalleTableroContent(tareaViewModel: TareaViewModel, onVolver: () -> Unit) {
+fun DetalleTableroContent(tareaViewModel: TareaViewModel, nombreTablero: String, onVolver: () -> Unit) {
     val listaTareas by tareaViewModel.listaTareas.collectAsState()
 
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Titulo del tablero") },
+                title = { Text(nombreTablero) },
                 navigationIcon = {
                     BotonVolver { onVolver() }
                 }

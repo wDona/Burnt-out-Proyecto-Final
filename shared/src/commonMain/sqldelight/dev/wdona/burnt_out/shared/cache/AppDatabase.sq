@@ -1,5 +1,5 @@
 CREATE TABLE Organizacion (
-    ID_Org INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    ID_Org INTEGER NOT NULL PRIMARY KEY,
     Org_Name TEXT NOT NULL
 );
 
@@ -102,6 +102,17 @@ CREATE TABLE Pendientes (
 CREATE INDEX idx_sync_log_sincronizado ON Pendientes(sincronizado);
 CREATE INDEX idx_sync_log_tabla ON Pendientes(tabla_afectada);
 CREATE INDEX idx_sync_log_timestamp ON Pendientes(timestamp_creacion);
+
+-- ======= INSERCIONES DE DATOS INICIALES =======
+insertOrgbase:
+INSERT OR IGNORE INTO Organizacion(Org_Name) VALUES('Organizacion Predeterminada');
+
+insertEquipoBase:
+INSERT OR IGNORE INTO Equipo(Titulo, FK_ID_Org) VALUES('Equipo Predeterminado', 1);
+
+insertAjustes:
+INSERT OR IGNORE INTO Ajuste(Nombre_Ajuste) VALUES('Notificaciones');
+INSERT OR IGNORE INTO Ajuste(Nombre_Ajuste) VALUES('Tema Oscuro');
 
 -- ===== QUERIES DE TABLAS =====
 
