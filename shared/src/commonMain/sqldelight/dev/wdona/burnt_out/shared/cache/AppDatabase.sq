@@ -142,6 +142,11 @@ SELECT * FROM Usuario WHERE ID_Usuario = ?;
 getEquipoById:
 SELECT * FROM Equipo WHERE ID_Equipo = ?;
 
+getUsuariosByEquipo:
+SELECT u.ID_Usuario, u.Username, u.Nombre
+FROM Usuario u JOIN User_Team ut ON u.ID_Usuario = ut.ID_Usuario
+WHERE ut.ID_Equipo = ?;
+
 getAjustesByUser:
 SELECT a.Nombre_Ajuste, au.Valor_Ajuste
 FROM Ajuste a JOIN Ajuste_User au ON a.ID_Ajuste = au.ID_Ajuste
