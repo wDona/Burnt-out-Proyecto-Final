@@ -65,7 +65,7 @@ fun ListaTareasContent(tareaViewModel: TareaViewModel, onVolver: () -> Unit) {
             ){
                 items(listaTareas) {
                         tarea ->
-                    CardTarea(tarea.titulo, tarea.descripcion)
+                    CardTarea(tarea.titulo)
                 }
             }
         }
