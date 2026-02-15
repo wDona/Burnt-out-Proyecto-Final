@@ -112,7 +112,7 @@ insertEquipoBase:
 INSERT OR IGNORE INTO Equipo(Titulo, FK_ID_Org) VALUES('Equipo Predeterminado', 1);
 
 insertAjustes:
-INSERT OR IGNORE INTO Ajuste(Nombre_Ajuste) VALUES('Notificaciones');
+INSERT OR IGNORE INTO Ajuste(Nombre_Ajuste) VALUES('Notificaciones'); -- TODO: anadir permiso en android
 INSERT OR IGNORE INTO Ajuste(Nombre_Ajuste) VALUES('Tema Oscuro');
 
 
