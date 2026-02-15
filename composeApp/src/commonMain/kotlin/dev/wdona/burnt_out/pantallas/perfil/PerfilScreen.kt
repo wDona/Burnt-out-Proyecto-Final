@@ -1,37 +1,36 @@
-package dev.wdona.burnt_out.pantallas
+package dev.wdona.burnt_out.pantallas.perfil
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
-import dev.wdona.burnt_out.components.BotonVolver
-import dev.wdona.burnt_out.viewmodelfactories.EquipoViewModelFactory
-import dev.wdona.burnt_out.viewmodelfactories.TareaViewModelFactory
+import dev.wdona.burnt_out.components.common.BotonVolver
+import dev.wdona.burnt_out.viewmodelfactories.PerfilViewModelFactory
 
-class LeaderboardScreen(factory: EquipoViewModelFactory) : Screen {
+class PerfilScreen(val factory: PerfilViewModelFactory) : Screen {
     @Composable
     override fun Content() {
         val navigator = LocalNavigator.currentOrThrow // Para poder volver o ir a otra
 
-        LeaderboardContent { navigator.pop() }
+        PerfilContent(onVolver = { navigator.pop() })
     }
+
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun LeaderboardContent(onVolver: () -> Unit) {
+@OptIn(ExperimentalMaterial3Api::class)
+fun PerfilContent(onVolver: () -> Unit) {
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Leaderboard") },
+                title = { Text("Mi perfil") },
                 navigationIcon = {
                     BotonVolver { onVolver() }
                 }
@@ -42,5 +41,6 @@ fun LeaderboardContent(onVolver: () -> Unit) {
         ) {
 
         }
+
     }
 }

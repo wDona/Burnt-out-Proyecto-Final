@@ -23,6 +23,10 @@ import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
+import dev.wdona.burnt_out.pantallas.equipo.EquipoScreen
+import dev.wdona.burnt_out.pantallas.equipo.LeaderboardScreen
+import dev.wdona.burnt_out.pantallas.perfil.PerfilScreen
+import dev.wdona.burnt_out.pantallas.tablero.TablerosScreen
 import dev.wdona.burnt_out.viewmodelfactories.EquipoViewModelFactory
 import dev.wdona.burnt_out.viewmodelfactories.PerfilViewModelFactory
 import dev.wdona.burnt_out.viewmodelfactories.TableroViewModelFactory
@@ -34,7 +38,12 @@ class MenuInicio(val equipoFactory: EquipoViewModelFactory, val tableroFactory: 
         val navigator = LocalNavigator.currentOrThrow
 
         HomeContent(
-            onNavegarATableros = { navigator.push(TablerosScreen(tableroFactory, tareaViewModelFactory = tareaViewModelFactory)) },
+            onNavegarATableros = { navigator.push(
+                TablerosScreen(
+                    tableroFactory,
+                    tareaViewModelFactory = tareaViewModelFactory
+                )
+            ) },
             onNavegarAPerfil = { navigator.push(PerfilScreen(perfilFactory)) },
             onNavegarALeaderboard = { navigator.push(LeaderboardScreen(equipoFactory)) },
             onNavegarAEquipo = { navigator.push(EquipoScreen(equipoFactory)) }

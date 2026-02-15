@@ -1,4 +1,4 @@
-package dev.wdona.burnt_out.pantallas
+package dev.wdona.burnt_out.pantallas.tablero
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -12,6 +12,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
@@ -21,8 +22,8 @@ import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
-import dev.wdona.burnt_out.components.BotonVolver
-import dev.wdona.burnt_out.components.CardTablero
+import dev.wdona.burnt_out.components.common.BotonVolver
+import dev.wdona.burnt_out.components.tablero.CardTablero
 import dev.wdona.burnt_out.viewmodelfactories.TableroViewModelFactory
 import dev.wdona.burnt_out.viewmodelfactories.TareaViewModelFactory
 import dev.wdona.burnt_out.viewmodels.TableroViewModel
@@ -32,6 +33,11 @@ class TablerosScreen(val tableroFactory: TableroViewModelFactory, val tareaViewM
     override fun Content() {
         val navigator = LocalNavigator.currentOrThrow
         val tableroViewModel: TableroViewModel = remember { tableroFactory.create() }
+        val idOrg = -1
+
+        LaunchedEffect(idOrg.toLong()) {
+            { tableroViewModel.cargarTablerosPorOrganizacion(idOrg.toLong()) }
+        }
 
         MenuTableros(
             onVolver = { navigator.pop() },

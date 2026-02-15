@@ -1,4 +1,4 @@
-package dev.wdona.burnt_out.shared.network
+package dev.wdona.burnt_out
 
 import kotlinx.serialization.Serializable
 

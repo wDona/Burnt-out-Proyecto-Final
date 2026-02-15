@@ -1,5 +1,7 @@
 package dev.wdona.burnt_out.shared.network
 
+import dev.wdona.burnt_out.Tablero
+import dev.wdona.burnt_out.Tarea
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation

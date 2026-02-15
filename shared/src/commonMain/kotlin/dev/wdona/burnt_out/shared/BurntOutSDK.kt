@@ -3,8 +3,8 @@ package dev.wdona.burnt_out.shared
 import dev.wdona.burnt_out.shared.cache.AppDatabase
 import dev.wdona.burnt_out.shared.cache.DatabaseDriverFactory
 import dev.wdona.burnt_out.shared.network.KtorClient
-import dev.wdona.burnt_out.shared.network.Tablero
-import dev.wdona.burnt_out.shared.network.Tarea
+import dev.wdona.burnt_out.Tablero
+import dev.wdona.burnt_out.Tarea
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -62,13 +62,13 @@ class BurntOutSDK(databaseDriverFactory: DatabaseDriverFactory) {
 
     suspend fun crearTarea(tarea: Tarea): Boolean {
         _dbAddTarea(tarea)
-        try {
-            _postTarea(tarea)
-        } catch (e: Exception) {
-
-            println("Error al enviar al servidor: ${e.message}")
-            return false
-        }
+//        try {
+//            _postTarea(tarea)
+//        } catch (e: Exception) {
+//
+//            println("Error al enviar al servidor: ${e.message}")
+//            return false
+//        }
         return true
     }
 
@@ -95,6 +95,18 @@ class BurntOutSDK(databaseDriverFactory: DatabaseDriverFactory) {
                     idTableroPerteneciente = it.FK_ID_Tabl,
                     idUsuarioAsignado = it.FK_ID_Usuario,
                     idSubtareas = listOf()
+                )
+            }
+    }
+
+    suspend fun obtenerTablerosPorOrganizacionLocal(idOrganizacion: Long): List<Tablero> {
+        return appDatabase.appDatabaseQueries.getTablerosByOrg(idOrganizacion).executeAsList()
+            .map {
+                Tablero(
+                    idTablero = it.ID_Tabl,
+                    titulo = it.Titulo,
+                    idOrganizacion = it.FK_ID_Org,
+                    idEquipo = it.FK_ID_Equipo
                 )
             }
     }

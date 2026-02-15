@@ -1,4 +1,4 @@
-package dev.wdona.burnt_out.components
+package dev.wdona.burnt_out.components.common
 
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton

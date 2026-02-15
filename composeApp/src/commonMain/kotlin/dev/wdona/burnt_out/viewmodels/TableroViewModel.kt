@@ -2,7 +2,7 @@ package dev.wdona.burnt_out.viewmodels
 
 import dev.wdona.burnt_out.shared.BurntOutSDK
 import dev.wdona.burnt_out.shared.cache.DatabaseDriverFactory
-import dev.wdona.burnt_out.shared.network.Tablero
+import dev.wdona.burnt_out.Tablero
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -34,11 +34,20 @@ class TableroViewModel(databaseDriverFactory: DatabaseDriverFactory) {
             try {
                 val tableroServidor = sdk.crearTablero(tableroLocal)
 
-
             } catch (e: Exception) {
                 println("Error: ${e.message}")
             }
         }
     }
 
+    fun cargarTablerosPorOrganizacion(idOrganizacion: Long) {
+        viewModelScope.launch {
+            try {
+                val tableros = sdk.obtenerTablerosPorOrganizacionLocal(idOrganizacion)
+                _listaTableros.value = tableros
+            } catch (e: Exception) {
+                println("Error cargando tableros: ${e.message}")
+            }
+        }
+    }
 }

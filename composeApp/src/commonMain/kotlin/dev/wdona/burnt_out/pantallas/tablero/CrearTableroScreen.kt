@@ -1,4 +1,4 @@
-package dev.wdona.burnt_out.pantallas
+package dev.wdona.burnt_out.pantallas.tablero
 
 import dev.wdona.burnt_out.viewmodelfactories.TableroViewModelFactory
 import dev.wdona.burnt_out.viewmodels.TableroViewModel
@@ -31,7 +31,7 @@ import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
-import dev.wdona.burnt_out.components.BotonVolver
+import dev.wdona.burnt_out.components.common.BotonVolver
 
 
 class MenuCrearTableroScreen(val factory: TableroViewModelFactory) : Screen {

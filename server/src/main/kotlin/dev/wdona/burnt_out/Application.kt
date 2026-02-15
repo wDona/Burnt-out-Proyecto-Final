@@ -1,6 +1,5 @@
 package dev.wdona.burnt_out
 
-import dev.wdona.burnt_out.shared.network.Tarea
 import io.ktor.serialization.kotlinx.json.json
 import io.ktor.server.application.*
 import io.ktor.server.engine.*

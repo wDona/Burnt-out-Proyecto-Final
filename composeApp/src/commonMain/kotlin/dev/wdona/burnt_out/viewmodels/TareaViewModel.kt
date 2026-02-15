@@ -2,7 +2,7 @@ package dev.wdona.burnt_out.viewmodels
 
 import dev.wdona.burnt_out.shared.BurntOutSDK
 import dev.wdona.burnt_out.shared.cache.DatabaseDriverFactory
-import dev.wdona.burnt_out.shared.network.Tarea
+import dev.wdona.burnt_out.Tarea
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow

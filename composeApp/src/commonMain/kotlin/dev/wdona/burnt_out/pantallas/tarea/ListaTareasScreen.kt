@@ -1,4 +1,4 @@
-package dev.wdona.burnt_out.pantallas
+package dev.wdona.burnt_out.pantallas.tarea
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -9,7 +9,6 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -21,8 +20,8 @@ import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
-import dev.wdona.burnt_out.components.BotonVolver
-import dev.wdona.burnt_out.components.CardTarea
+import dev.wdona.burnt_out.components.common.BotonVolver
+import dev.wdona.burnt_out.components.tarea.CardTarea
 import dev.wdona.burnt_out.viewmodels.TareaViewModel
 import dev.wdona.burnt_out.viewmodelfactories.TareaViewModelFactory
 
