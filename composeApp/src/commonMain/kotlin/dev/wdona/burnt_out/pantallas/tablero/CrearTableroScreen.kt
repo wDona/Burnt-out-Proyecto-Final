@@ -34,6 +34,7 @@ import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import dev.wdona.burnt_out.components.common.AnadirButton
 import dev.wdona.burnt_out.components.common.BotonVolver
+import dev.wdona.burnt_out.components.template.CrearTemplate
 
 
 class MenuCrearTableroScreen(val factory: TableroViewModelFactory) : Screen {
@@ -69,38 +70,28 @@ fun MenuCrearTableroContent(tableroViewModel: TableroViewModel, onVolver: () -> 
         }
         false
     }
-    Scaffold(
-        topBar = {
-            TopAppBar(
-                title = { Text("Crear tablero") },
-                navigationIcon = {
-                    BotonVolver { onVolver() }
-                },
-                actions = {
-                    AnadirButton { ejecutarEnvio() }
-                }
-            )
-        },
-    ) { paddingValues ->
-        Column {
-            Column(
+    CrearTemplate(
+        titulo = "Crear Tablero",
+        onVolver = onVolver,
+        onCrear = ejecutarEnvio
+    ) {
+     paddingValues ->
+        Column(
+            modifier = Modifier
+                .padding(paddingValues)
+                .padding(horizontal = 16.dp),
+            horizontalAlignment = Alignment.CenterHorizontally) {
+            OutlinedTextField(
+                value = textStateNombreTablero, // El valor que se muestra
+                onValueChange = { newText ->
+                    textStateNombreTablero = newText },
+                label = { Text("Titulo") },
+                placeholder = { Text("Ej. Lista de la compra") },
+                singleLine = true,
                 modifier = Modifier
-                    .padding(paddingValues)
-                    .padding(horizontal = 16.dp),
-                horizontalAlignment = Alignment.CenterHorizontally) {
-                OutlinedTextField(
-                    value = textStateNombreTablero, // El valor que se muestra
-                    onValueChange = { newText ->
-                        textStateNombreTablero = newText
-                    },
-                    label = { Text("Titulo") },
-                    placeholder = { Text("Ej. Lista de la compra") },
-                    singleLine = true,
-                    modifier = Modifier
-                        .fillMaxWidth(),
-                    keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next)
-                )
-            }
+                    .fillMaxWidth(),
+                keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next)
+            )
         }
     }
 }

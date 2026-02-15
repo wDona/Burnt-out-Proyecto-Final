@@ -11,7 +11,6 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -23,7 +22,7 @@ import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
-import dev.wdona.burnt_out.components.common.BotonVolver
+import dev.wdona.burnt_out.components.common.InfoTopBarCustom
 import dev.wdona.burnt_out.components.tarea.CardTarea
 import dev.wdona.burnt_out.pantallas.tarea.MenuCrearTareaScreen
 import dev.wdona.burnt_out.viewmodelfactories.TareaViewModelFactory
@@ -68,12 +67,7 @@ fun DetalleTableroContent(tareaViewModel: TareaViewModel, nombreTablero: String,
 
     Scaffold(
         topBar = {
-            TopAppBar(
-                title = { Text(nombreTablero) },
-                navigationIcon = {
-                    BotonVolver { onVolver() }
-                }
-            )
+            InfoTopBarCustom(nombreTablero, onVolver)
         }
     ) { paddingValues ->
         Column(
