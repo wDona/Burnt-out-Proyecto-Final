@@ -3,10 +3,10 @@ package dev.wdona.burnt_out.shared.network
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class Tarea(val idTarea: Int, val titulo: String, val descripcion: String?, val estado: String, val idTableroPerteneciente: Int, val idUsuarioAsignado: Long, val idSubtareas: List<Int>?)
+data class Tarea(val idTarea: Long, val titulo: String, val descripcion: String?, val estado: String, val idTableroPerteneciente: Long, val idUsuarioAsignado: Long, val idSubtareas: List<Int>?)
 
 @Serializable
-data class Tablero(val idTablero: String, val titulo: String, val idOrganizacion: Int, val idEquipo: Int) // Id equipo anadido para saber pertenencia
+data class Tablero(val idTablero: Long, val titulo: String, val idOrganizacion: Long, val idEquipo: Long?) // Id equipo anadido para saber pertenencia
 
 @Serializable
 data class Equipo(val idEquipo: Int, val titulo: String, val puntuacion: Int, val idOrganizacion: Int, val idMiembros: List<Int>) // Puntuacion anadida

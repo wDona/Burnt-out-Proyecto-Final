@@ -25,7 +25,7 @@ fun App(tareaFactory: TareaViewModelFactory, equipoViewModelFactory: EquipoViewM
             color = if (isSystemInDarkTheme()) DarkColorScheme.background else LightColorScheme.background
 
         ) {
-            Navigator(MenuInicio(equipoViewModelFactory, tableroViewModelFactory, perfilViewModelFactory))
+            Navigator(MenuInicio(equipoViewModelFactory, tableroViewModelFactory, perfilViewModelFactory, tareaFactory))
         }
     }
 }

@@ -29,7 +29,7 @@ fun Application.module() {
             val recibido = call.receive<Tarea>()
 
             val respuesta = Tarea(
-                idTarea = System.currentTimeMillis().toInt(),
+                idTarea = System.currentTimeMillis(),
                 titulo = recibido.titulo,
                 descripcion = recibido.descripcion,
                 estado = "pendiente",

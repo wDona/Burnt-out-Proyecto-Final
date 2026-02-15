@@ -27,10 +27,19 @@ open class KtorClient {
         return client.get("http://$HOST:8080/api/test").body()
     }
 
-    suspend fun hacerPeticion(tarea: Tarea): Tarea {
+    suspend fun enviar(tarea: Tarea): Tarea {
         val respuesta: Tarea = client.post("http://$HOST:8080/api/test") {
             contentType(ContentType.Application.Json)
             setBody<Tarea>(tarea) // Enviamos el objeto (Ktor lo hace JSON)
+        }.body() // Recibimos la respuesta (Ktor la hace objeto)
+
+        return respuesta
+    }
+
+    suspend fun enviar(tablero: Tablero): Tablero {
+        val respuesta: Tablero = client.post("http://$HOST:8080/api/test") {
+            contentType(ContentType.Application.Json)
+            setBody<Tablero>(tablero) // Enviamos el objeto (Ktor lo hace JSON)
         }.body() // Recibimos la respuesta (Ktor la hace objeto)
 
         return respuesta

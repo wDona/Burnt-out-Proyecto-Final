@@ -24,7 +24,7 @@ class TareaViewModel(databaseDriverFactory: DatabaseDriverFactory) {
     val listaTareas: StateFlow<List<Tarea>> = _listaTareas
 
 
-    fun crearTarea(idTarea: Int, nombreTarea: String, descripcion: String, idTablero: Int, ) {
+    fun crearTarea(idTarea: Long, nombreTarea: String, descripcion: String, idTablero: Long, ) {
         val tareaLocal = Tarea(idTarea, nombreTarea, descripcion, "pendiente", idTablero, 0,
             listOf(0))
 
@@ -38,6 +38,17 @@ class TareaViewModel(databaseDriverFactory: DatabaseDriverFactory) {
 
             } catch (e: Exception) {
                 println("Error: ${e.message}")
+            }
+        }
+    }
+
+    fun cargarTareasPorTablero(idTablero: Long) {
+        viewModelScope.launch {
+            try {
+                val tareas = sdk.obtenerTareasPorTableroLocal(idTablero)
+                _listaTareas.value = tareas
+            } catch (e: Exception) {
+                println("Error cargando tareas: ${e.message}")
             }
         }
     }

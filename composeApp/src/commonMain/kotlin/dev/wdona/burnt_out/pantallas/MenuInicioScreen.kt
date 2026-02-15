@@ -28,13 +28,13 @@ import dev.wdona.burnt_out.viewmodelfactories.PerfilViewModelFactory
 import dev.wdona.burnt_out.viewmodelfactories.TableroViewModelFactory
 import dev.wdona.burnt_out.viewmodelfactories.TareaViewModelFactory
 
-class MenuInicio(val equipoFactory: EquipoViewModelFactory, val tableroFactory: TableroViewModelFactory, val perfilFactory: PerfilViewModelFactory) : Screen {
+class MenuInicio(val equipoFactory: EquipoViewModelFactory, val tableroFactory: TableroViewModelFactory, val perfilFactory: PerfilViewModelFactory, val tareaViewModelFactory: TareaViewModelFactory) : Screen {
     @Composable
     override fun Content() {
         val navigator = LocalNavigator.currentOrThrow
 
         HomeContent(
-            onNavegarATableros = { navigator.push(TablerosScreen(tableroFactory)) },
+            onNavegarATableros = { navigator.push(TablerosScreen(tableroFactory, tareaViewModelFactory = tareaViewModelFactory)) },
             onNavegarAPerfil = { navigator.push(PerfilScreen(perfilFactory)) },
             onNavegarALeaderboard = { navigator.push(LeaderboardScreen(equipoFactory)) },
             onNavegarAEquipo = { navigator.push(EquipoScreen(equipoFactory)) }

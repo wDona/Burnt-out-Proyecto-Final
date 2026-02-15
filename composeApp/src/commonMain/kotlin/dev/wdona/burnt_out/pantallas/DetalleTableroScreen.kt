@@ -9,9 +9,9 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
@@ -23,49 +23,56 @@ import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import dev.wdona.burnt_out.components.BotonVolver
 import dev.wdona.burnt_out.components.CardTarea
-import dev.wdona.burnt_out.viewmodels.TareaViewModel
 import dev.wdona.burnt_out.viewmodelfactories.TareaViewModelFactory
+import dev.wdona.burnt_out.viewmodels.TareaViewModel
 
-class ListaTareasScreen(val tareaFactory: TareaViewModelFactory) : Screen {
+class DetalleTableroScreen(val idTablero: Long, val tareaViewModelFactory: TareaViewModelFactory) : Screen {
+
     @Composable
     override fun Content() {
         val navigator = LocalNavigator.currentOrThrow
-        val tareaViewModel: TareaViewModel = remember { tareaFactory.create() }
 
-        ListaTareasContent(
-            tareaViewModel = tareaViewModel,
-            onVolver = { navigator.pop() }
-        )
+//        val perfilViewModel = remember { perfilFactory.create() }
+//        val equipoViewModel = remember { equipoFactory.create() }
+
+        val tareaViewModel = remember { tareaViewModelFactory.create() }
+
+        // Cargar tareas cuando se abre la pantalla
+        LaunchedEffect(idTablero) {
+            tareaViewModel.cargarTareasPorTablero(idTablero)
+        }
+
+        DetalleTableroContent(tareaViewModel) { navigator.pop() }
     }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ListaTareasContent(tareaViewModel: TareaViewModel, onVolver: () -> Unit) {
+fun DetalleTableroContent(tareaViewModel: TareaViewModel, onVolver: () -> Unit) {
     val listaTareas by tareaViewModel.listaTareas.collectAsState()
 
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Mis Tareas") },
+                title = { Text("Titulo del tablero") },
                 navigationIcon = {
                     BotonVolver { onVolver() }
                 }
             )
         }
     ) { paddingValues ->
-        Column (modifier = Modifier.padding(paddingValues)
+        Column(
+            modifier = Modifier.padding(paddingValues)
         ) {
-            LazyColumn (
+            LazyColumn(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.spacedBy(12.dp),
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(paddingValues)
 
-            ){
-                items(listaTareas) {
-                        tarea ->
+            ) {
+                items(listaTareas) { tarea ->
                     CardTarea(tarea.titulo, tarea.descripcion)
                 }
             }
