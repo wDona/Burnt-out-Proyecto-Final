@@ -14,6 +14,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -31,6 +32,7 @@ import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
+import dev.wdona.burnt_out.components.common.AnadirButton
 import dev.wdona.burnt_out.components.common.BotonVolver
 
 
@@ -55,20 +57,14 @@ fun MenuCrearTableroContent(tableroViewModel: TableroViewModel, onVolver: () -> 
     // val uiState by viewModel.uiState.collectAsState()
     var textStateNombreTablero by remember { mutableStateOf("") }
     val listaComponentes by tableroViewModel.listaTableros.collectAsState()
-    val focusRequesterNombreTablero = remember { FocusRequester() }
 
     val navigator = LocalNavigator.currentOrThrow
-
-    LaunchedEffect(Unit) {
-        focusRequesterNombreTablero.requestFocus()
-    }
 
     val ejecutarEnvio: () -> Unit = {
         if (textStateNombreTablero.isNotBlank()) {
             tableroViewModel.crearTablero(textStateNombreTablero)
 
             textStateNombreTablero = ""
-            focusRequesterNombreTablero.requestFocus()
             true
         }
         false
@@ -79,18 +75,12 @@ fun MenuCrearTableroContent(tableroViewModel: TableroViewModel, onVolver: () -> 
                 title = { Text("Crear tablero") },
                 navigationIcon = {
                     BotonVolver { onVolver() }
+                },
+                actions = {
+                    AnadirButton { ejecutarEnvio() }
                 }
             )
         },
-        floatingActionButton = {
-            FloatingActionButton(
-                onClick = ejecutarEnvio,
-                containerColor = MaterialTheme.colorScheme.primary
-            ) {
-                Text("+")
-            }
-        },
-        contentWindowInsets = WindowInsets.ime,
     ) { paddingValues ->
         Column {
             Column(
@@ -107,7 +97,6 @@ fun MenuCrearTableroContent(tableroViewModel: TableroViewModel, onVolver: () -> 
                     placeholder = { Text("Ej. Lista de la compra") },
                     singleLine = true,
                     modifier = Modifier
-                        .focusRequester(focusRequesterNombreTablero)
                         .fillMaxWidth(),
                     keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next)
                 )
