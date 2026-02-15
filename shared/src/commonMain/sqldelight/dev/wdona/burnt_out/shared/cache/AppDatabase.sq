@@ -30,6 +30,7 @@ CREATE TABLE Tablero (
 CREATE TABLE Equipo (
     ID_Equipo INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     Titulo TEXT NOT NULL,
+    Puntuacion INTEGER DEFAULT 0, -- Anadido a posteriori, faltaba en el disenio
     FK_ID_Org INTEGER NOT NULL,
     FOREIGN KEY(FK_ID_Org) REFERENCES Organizacion(ID_Org)
 );
@@ -114,6 +115,8 @@ insertAjustes:
 INSERT OR IGNORE INTO Ajuste(Nombre_Ajuste) VALUES('Notificaciones');
 INSERT OR IGNORE INTO Ajuste(Nombre_Ajuste) VALUES('Tema Oscuro');
 
+
+
 -- ===== QUERIES DE TABLAS =====
 
 insertTarea:
@@ -129,3 +132,22 @@ SELECT * FROM Tarea WHERE FK_ID_Tabl = ?;
 
 getTablerosByOrg:
 SELECT * FROM Tablero WHERE FK_ID_Org = ?;
+
+getUserById:
+SELECT * FROM Usuario WHERE ID_Usuario = ?;
+
+getEquipoById:
+SELECT * FROM Equipo WHERE ID_Equipo = ?;
+
+getAjustesByUser:
+SELECT a.Nombre_Ajuste, au.Valor_Ajuste
+FROM Ajuste a JOIN Ajuste_User au ON a.ID_Ajuste = au.ID_Ajuste
+WHERE au.ID_Usuario = ?;
+
+getOrganizacionById:
+SELECT * FROM Organizacion WHERE ID_Org = ?;
+
+getPreguntasByOrg:
+SELECT * FROM Pregunta WHERE FK_ID_Org = ?;
+
+
