@@ -115,3 +115,6 @@ VALUES(?, ?, ?);
 
 getTareasByTablero:
 SELECT * FROM Tarea WHERE FK_ID_Tabl = ?;
+
+getTablerosByOrg:
+SELECT * FROM Tablero WHERE FK_ID_Org = ?;
