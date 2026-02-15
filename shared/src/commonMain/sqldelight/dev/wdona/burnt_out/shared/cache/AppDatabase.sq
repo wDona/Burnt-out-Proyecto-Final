@@ -8,7 +8,7 @@ CREATE TABLE Usuario (
     Username TEXT NOT NULL UNIQUE,
     Contrasena TEXT NOT NULL,
     Nombre TEXT NOT NULL,
-    Riesgo_Burnout TEXT,
+    Riesgo_Burnout REAL,
     Descripcion TEXT,
     FK_ID_Organizacion INTEGER NOT NULL,
     FOREIGN KEY(FK_ID_Organizacion) REFERENCES Organizacion(ID_Org)
@@ -130,6 +130,10 @@ insertTablero:
 INSERT INTO Tablero(Titulo, FK_ID_Equipo, FK_ID_Org)
 VALUES(?, ?, ?);
 
+insertEquipo:
+INSERT INTO Equipo(Titulo, FK_ID_Org)
+VALUES(?, ?);
+
 getTareasByTablero:
 SELECT * FROM Tarea WHERE FK_ID_Tabl = ?;
 
@@ -142,8 +146,11 @@ SELECT * FROM Usuario WHERE ID_Usuario = ?;
 getEquipoById:
 SELECT * FROM Equipo WHERE ID_Equipo = ?;
 
+getEquiposByOrg:
+SELECT * FROM Equipo WHERE FK_ID_Org = ?;
+
 getUsuariosByEquipo:
-SELECT u.ID_Usuario, u.Username, u.Nombre
+SELECT u.ID_Usuario, u.Username, u.Nombre, u.Riesgo_Burnout, u.Descripcion, u.FK_ID_Organizacion
 FROM Usuario u JOIN User_Team ut ON u.ID_Usuario = ut.ID_Usuario
 WHERE ut.ID_Equipo = ?;
 
