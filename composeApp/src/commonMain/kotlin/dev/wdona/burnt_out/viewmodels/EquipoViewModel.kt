@@ -26,7 +26,7 @@ class EquipoViewModel(databaseDriverFactory: DatabaseDriverFactory) {
 
     private val _uiStateMiembro = MutableStateFlow<Usuario?>(null)
     val uiStateMiembro: StateFlow<Usuario?> =_uiStateMiembro.asStateFlow()
-    private val _listaMiembros = MutableStateFlow<List<Usuario>?>(emptyList())
+    private val _listaMiembros = MutableStateFlow<List<Usuario>>(emptyList())
     val listaMiembros: StateFlow<List<Usuario>?> = _listaMiembros
 
 
