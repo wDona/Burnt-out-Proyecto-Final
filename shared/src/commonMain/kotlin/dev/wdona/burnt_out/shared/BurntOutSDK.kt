@@ -158,4 +158,17 @@ class BurntOutSDK(databaseDriverFactory: DatabaseDriverFactory) {
             }
     }
 
+    fun obtenerEquipoPorIdLocal(idEquipo: Long): Equipo? {
+        val equipo = appDatabase.appDatabaseQueries.getEquipoById(idEquipo).executeAsOneOrNull()
+        return equipo?.let {
+            Equipo(
+                idEquipo = it.ID_Equipo,
+                titulo = it.Titulo,
+                idOrganizacion = it.FK_ID_Org,
+                puntuacion = it.Puntuacion,
+                idMiembros = obtenerMiembrosDeEquipoLocal(it.ID_Equipo).map { miembro -> miembro.idUsuario }
+            )
+        }
+    }
+
 }
