@@ -20,17 +20,18 @@ import dev.wdona.burnt_out.viewmodelfactories.TareaViewModelFactory
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun App(tareaFactory: TareaViewModelFactory, equipoViewModelFactory: EquipoViewModelFactory, perfilViewModelFactory: PerfilViewModelFactory, tableroViewModelFactory: TableroViewModelFactory) {
-    LaunchedEffect(0) {
-
-    }
-
     CustomMaterialTheme {
         Surface(
             modifier = Modifier.fillMaxSize(),
             color = if (isSystemInDarkTheme()) DarkColorScheme.background else LightColorScheme.background
 
         ) {
-            Navigator(MenuInicio(equipoViewModelFactory, tableroViewModelFactory, perfilViewModelFactory, tareaFactory))
+            Navigator(
+                key = "home",
+                screen = MenuInicio(equipoViewModelFactory, tableroViewModelFactory, perfilViewModelFactory, tareaFactory)
+            )
+
+            // TODO: HACER INICIO DE SESION Y SI ESTA LOGEADO QUE APAREZCA EL HOME, SI NO EL LOGIN
         }
     }
 }
