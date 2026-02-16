@@ -17,6 +17,9 @@ import dev.wdona.burnt_out.viewmodelfactories.PerfilViewModelFactory
 import dev.wdona.burnt_out.viewmodelfactories.TableroViewModelFactory
 import dev.wdona.burnt_out.viewmodelfactories.TareaViewModelFactory
 
+import cafe.adriel.voyager.transitions.SlideTransition
+
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun App(tareaFactory: TareaViewModelFactory, equipoViewModelFactory: EquipoViewModelFactory, perfilViewModelFactory: PerfilViewModelFactory, tableroViewModelFactory: TableroViewModelFactory) {
@@ -29,7 +32,9 @@ fun App(tareaFactory: TareaViewModelFactory, equipoViewModelFactory: EquipoViewM
             Navigator(
                 key = "home",
                 screen = MenuInicio(equipoViewModelFactory, tableroViewModelFactory, perfilViewModelFactory, tareaFactory)
-            )
+            ) {
+                navigator -> SlideTransition(navigator)
+            }
 
             // TODO: HACER INICIO DE SESION Y SI ESTA LOGEADO QUE APAREZCA EL HOME, SI NO EL LOGIN
         }
